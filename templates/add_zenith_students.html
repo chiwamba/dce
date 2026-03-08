@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Zenith Students</title>
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <style>
+        :root {
+            --primary-blue: #1e3c72;
+            --secondary-blue: #2a5298;
+            --light-blue: #4a7dff;
+            --white: #ffffff;
+            --light-bg: #f5f7fa;
+            --gray-border: #e0e0e0;
+            --success-green: #4caf50;
+            --error-red: #f44336;
+            --info-blue: #2196f3;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding-top: 140px; /* Space for fixed header */
+        }
+        
+        /* Fixed Header Styling */
+        .header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header .subtitle {
+            margin-top: 5px;
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        /* Navigation Styling */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-links {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-links a.active {
+            background: var(--light-blue);
+            border-color: var(--light-blue);
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: var(--secondary-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--info-blue);
+        }
+        
+        .info-box h3 {
+            margin-top: 0;
+            color: #0d47a1;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-box p {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--gray-border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(42, 82, 152, 0.2);
+        }
+        
+        .message {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .message.success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #2e7d32;
+            border-left: 4px solid var(--success-green);
+        }
+        
+        .message.error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            color: #c62828;
+            border-left: 4px solid var(--error-red);
+        }
+        
+        .batch-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: var(--info-blue);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 16px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3f2fd 100%);
+            border-radius: 8px;
+            border: 2px dashed var(--info-blue);
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .batch-link:hover {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+            text-decoration: none;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: var(--secondary-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(42, 82, 152, 0.2);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        /* Form validation styling */
+        input:valid:not(:placeholder-shown) {
+            border-color: #4caf50;
+        }
+        
+        input:invalid:not(:placeholder-shown) {
+            border-color: #f44336;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 180px; /* More space for header on mobile */
+            }
+            
+            .container {
+                margin: 20px;
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .header .subtitle {
+                font-size: 14px;
+            }
+            
+            .nav-links {
+                padding: 10px;
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .nav-links a {
+                padding: 8px 16px;
+                font-size: 14px;
+                border-radius: 20px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .info-box {
+                padding: 20px;
+            }
+            
+            .message {
+                padding: 14px;
+                font-size: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding-top: 200px; /* Even more space for header on very small screens */
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .header {
+                padding: 10px 15px;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links a {
+                width: 90%;
+                text-align: center;
+                margin: 2px 0;
+            }
+            
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 18px;
+            }
+            
+            button {
+                padding: 14px 24px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Header scroll effect */
+        .header-container.scrolled {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Icon styling */
+        h2::before {
+            margin-right: 10px;
+        }
+        
+        .info-box h3::before {
+            margin-right: 8px;
+        }
+        
+        .message::before {
+            font-size: 18px;
+        }
+        
+        /* Focus styles for accessibility */
+        a:focus, button:focus, input:focus, select:focus {
+            outline: 2px solid var(--light-blue);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header Container -->
+    <div class="header-container" id="headerContainer">
+        <div class="header">
+            <h1>Zenith Private Secondary School</h1>
+            <div class="subtitle">Student Management System</div>
+        </div>
+        
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="/admin">Admin Panel</a>
+                <a href="/add_zenith_students" class="active">Add Students</a>
+                <a href="/batch_add_zenith_students">Batch Upload</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>Add New Student to Zenith Sheets</h2>
+        
+        <div class="info-box">
+            <h3>📝 Important Information</h3>
+            <p>• Students will be added to Zenith Private Secondary School sheets only</p>
+            <p>• Student ID goes to Column A, Name goes to Column B</p>
+            <p>• System automatically checks for duplicate Student IDs</p>
+            <p>• Each form has its own separate Google Sheet</p>
+        </div>
+        
+        {% if success_message %}
+        <div class="message success">
+            ✅ {{ success_message }}
+        </div>
+        {% endif %}
+        
+        {% if error_message %}
+        <div class="message error">
+            ❌ {{ error_message }}
+        </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="form_level">📚 Select Form:</label>
+                <select id="form_level" name="form_level" required>
+                    <option value="">-- Select Form Level --</option>
+                    <option value="form1" {% if selected_form == 'form1' %}selected{% endif %}>Form 1</option>
+                    <option value="form2" {% if selected_form == 'form2' %}selected{% endif %}>Form 2</option>
+                    <option value="form3" {% if selected_form == 'form3' %}selected{% endif %}>Form 3</option>
+                    <option value="form4" {% if selected_form == 'form4' %}selected{% endif %}>Form 4</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="student_id">🆔 Student ID:</label>
+                <input type="text" id="student_id" name="student_id" 
+                       value="{{ student_id }}" 
+                       required 
+                       placeholder="Enter Student ID (e.g., ZEN2024001)"
+                       pattern="^[A-Za-z0-9]+$"
+                       title="Please enter a valid Student ID (letters and numbers only)">
+            </div>
+            
+            <div class="form-group">
+                <label for="student_name">👤 Student Full Name:</label>
+                <input type="text" id="student_name" name="student_name" 
+                       value="{{ student_name }}" 
+                       required 
+                       placeholder="Enter Student Full Name">
+            </div>
+            
+            <button type="submit">
+                ➕ Add Student to Zenith Sheet
+            </button>
+        </form>
+        
+        <a href="/batch_add_zenith_students" class="batch-link">
+            📄 Upload Multiple Students (Batch Upload)
+        </a>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="/admin" class="back-link">
+                ← Back to Admin Panel
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 Zenith Private Secondary School - SmartScore Center. All rights reserved.
+    </div>
+
+    <script>
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const headerContainer = document.getElementById('headerContainer');
+            if (window.scrollY > 10) {
+                headerContainer.classList.add('scrolled');
+            } else {
+                headerContainer.classList.remove('scrolled');
+            }
+        });
+        
+        // Highlight current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Auto-focus on student ID input if it's empty
+            const studentIdInput = document.getElementById('student_id');
+            if (studentIdInput && !studentIdInput.value.trim()) {
+                studentIdInput.focus();
+            }
+            
+            // Form validation enhancement
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    // Basic validation can be added here
+                    const studentId = document.getElementById('student_id').value.trim();
+                    const studentName = document.getElementById('student_name').value.trim();
+                    
+                    if (!studentId || !studentName) {
+                        e.preventDefault();
+                        alert('Please fill in all required fields.');
+                        return false;
+                    }
+                    
+                    // Show loading state
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    const originalText = submitButton.innerHTML;
+                    submitButton.innerHTML = '⏳ Adding Student...';
+                    submitButton.disabled = true;
+                    
+                    // Re-enable button after 5 seconds (in case submission fails)
+                    setTimeout(() => {
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                    }, 5000);
+                });
+            }
+        });
+        
+        // Real-time input validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const studentIdInput = document.getElementById('student_id');
+            if (studentIdInput) {
+                studentIdInput.addEventListener('input', function() {
+                    // Convert to uppercase automatically
+                    this.value = this.value.toUpperCase();
+                    
+                    // Add visual feedback for valid input
+                    if (this.value.trim().length > 0) {
+                        this.style.borderColor = '#4caf50';
+                    } else {
+                        this.style.borderColor = '#e0e0e0';
+                    }
+                });
+            }
+            
+            const studentNameInput = document.getElementById('student_name');
+            if (studentNameInput) {
+                studentNameInput.addEventListener('input', function() {
+                    // Add visual feedback for valid input
+                    if (this.value.trim().length > 0) {
+                        this.style.borderColor = '#4caf50';
+                    } else {
+                        this.style.borderColor = '#e0e0e0';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

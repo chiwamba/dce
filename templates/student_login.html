@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <!-- Link to Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ6t0oI0h+Y4L2s1u6vkgZpP8S9L3qfW5XxuF1zq1xxu3FQWvc9Yp93SzM5x" crossorigin="anonymous">
+    <style>
+        /* General Body Styling */
+        body {
+            background: linear-gradient(135deg, #6ab1d7, #33d9b2);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* Menu Styling */
+        .menu {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            margin: 0 15px;
+            display: inline-block;
+        }
+
+        .menu a:hover {
+            color: #0056b3;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .footer a {
+            color: #6ab1d7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Login Container Styling */
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+        }
+
+        .login-heading {
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            .menu a {
+                font-size: 0.9rem;
+                margin: 0 10px;
+            }
+
+            .footer {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header .logo {
+                font-size: 1.5rem;
+            }
+
+            .menu a {
+                font-size: 0.85rem;
+            }
+
+            .login-heading {
+                font-size: 20px;
+                padding: 10px;
+            }
+
+            .btn-primary {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Student Portal</div>
+    </header>
+
+    <!-- Menu -->
+    <nav class="menu">
+        <a href="https://www.smartscorecenter.com" target="_blank">Test Center</a>
+    </nav>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-heading">Student Login</div>
+        <form method="POST">
+            <div class="form-group">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2025 Student Portal | Powered by <a href="https://www.smartscorecenter.com">SmartScore Center</a> |
+        <a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>
+    </footer>
+
+    <!-- Link to Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7S8o3sG3j5SYIsY3epczvF73Jg57O7Rjt6CzNmXt6psimnX57g1pdxkYPaN4sw" crossorigin="anonymous"></script>
+</body>
+</html>

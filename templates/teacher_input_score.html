@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Input Score</title>
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <style>
+        /* Reset some default styles */
+        body, h1, h2, p, a {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        header nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        header nav a:hover {
+            color: #e0f2e9;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            margin-top: auto;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: auto;
+        }
+
+        form {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="hidden"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 8px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        #student_list {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #student_list p {
+            margin: 5px 0;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            header nav {
+                gap: 10px;
+            }
+
+            form {
+                padding: 15px;
+            }
+
+            input[type="text"],
+            input[type="number"] {
+                padding: 10px;
+            }
+
+            button {
+                padding: 10px 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1, h2 {
+                font-size: 1.5em;
+            }
+
+            form {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Score Entry Dashboard</div>
+        <nav>
+            <a href="https://www.smartscorecenter.com" target="_blank">Home</a>
+            <a href="/student_login">Student Login</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Input Scores for {{ subject_column }}</h1>
+
+        <!-- Display flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div id="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" id="student_form">
+            <div id="student_scores" class="form-group">
+                <label for="student_id">Enter Student ID to Add:</label>
+                <input type="text" id="student_id" name="student_id" placeholder="Enter Student ID">
+                <button type="button" onclick="addStudent()">Add Student</button>
+            </div>
+
+            <div id="student_list"></div>
+            <button type="submit">Get Names and Prepare Scores</button>
+        </form>
+
+        <h2>Enter Scores:</h2>
+        <form method="POST">
+            <div id="score_entries">
+                {% for student_id, student_name in student_data %}
+                    <div class="form-group">
+                        <label for="student_{{ student_id }}">{{ student_name }} (ID: {{ student_id }}):</label>
+                        <input type="number" name="score_{{ student_id }}" placeholder="Enter Score" step="0.01" required>
+                        <input type="hidden" name="student_ids" value="{{ student_id }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" name="submit_scores">Submit Scores</button>
+        </form>
+
+         <!--End of Term Exam Results Heading 
+        <h2>End of Term 3 Exam Results<center><br> Day Students</center></h2> -->
+
+        <!-- Additional Form Results Buttons 
+         <form action="/form1_results" method="post">
+            <button type="submit">Form 1 Results</button>
+        </form>
+        <!--<form action="/form2_results" method="post">
+            <button type="submit">Form 2 Results</button>
+        </form> 
+        <form action="/form3_results" method="post">
+            <button type="submit">Form 3 Results</button>
+        </form>
+        <!--<form action="/form4_results" method="post">
+            <button type="submit">Form 4 Results</button>
+        </form> -->
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        &copy; 2025 SmartScore Center. All rights reserved.
+    </footer>
+
+    <script>
+        function addStudent() {
+            const student_id = document.getElementById('student_id').value;
+            if (!student_id) {
+                alert("Please enter a student ID.");
+                return;
+            }
+            const studentList = document.getElementById('student_list');
+            const newStudent = document.createElement('p');
+            newStudent.textContent = "Student ID: " + student_id;
+            studentList.appendChild(newStudent);
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = "hidden";
+            hiddenInput.name = "student_ids";
+            hiddenInput.value = student_id;
+            studentList.appendChild(hiddenInput);
+            document.getElementById('student_id').value = ''; // Clear the input after adding
+        }
+    </script>
+</body>
+</html>

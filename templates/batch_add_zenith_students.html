@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Add Zenith Students</title>
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <style>
+        :root {
+            --primary-blue: #1e3c72;
+            --secondary-blue: #2a5298;
+            --light-blue: #4a7dff;
+            --white: #ffffff;
+            --light-bg: #f5f7fa;
+            --gray-border: #e0e0e0;
+            --success-green: #4caf50;
+            --error-red: #f44336;
+            --warning-orange: #ff9800;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding-top: 140px; /* Space for fixed header */
+        }
+        
+        /* Fixed Header Styling */
+        .header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header .subtitle {
+            margin-top: 5px;
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        /* Navigation Styling */
+        .nav-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-links {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            font-size: 15px;
+            white-space: nowrap;
+        }
+        
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-links a.active {
+            background: var(--light-blue);
+            border-color: var(--light-blue);
+            font-weight: 600;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: var(--secondary-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--warning-orange);
+        }
+        
+        .info-box h3 {
+            margin-top: 0;
+            color: #f57c00;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--gray-border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 20px;
+            border: 2px solid var(--gray-border);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            min-height: 250px;
+            resize: vertical;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+        
+        .example {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.4;
+            color: #666;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--primary-blue) 100%);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(42, 82, 152, 0.2);
+        }
+        
+        .results-section {
+            margin-top: 40px;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .results-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 2px solid #e9ecef;
+        }
+        
+        .result-line {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+        
+        .result-line.success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 3px solid var(--success-green);
+        }
+        
+        .result-line.error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border-left: 3px solid var(--error-red);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .stat {
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .stat.added {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .stat.errors {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: 2px solid var(--secondary-blue);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: var(--secondary-blue);
+            color: white;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        
+        .flash-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .flash-success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #2e7d32;
+            border-left: 4px solid var(--success-green);
+        }
+        
+        .flash-error {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            color: #c62828;
+            border-left: 4px solid var(--error-red);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 180px; /* More space for header on mobile */
+            }
+            
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .header .subtitle {
+                font-size: 14px;
+            }
+            
+            .nav-links {
+                padding: 10px;
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .nav-links a {
+                padding: 8px 16px;
+                font-size: 14px;
+                border-radius: 20px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding-top: 200px; /* Even more space for header on very small screens */
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .header {
+                padding: 10px 15px;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links a {
+                width: 90%;
+                text-align: center;
+                margin: 2px 0;
+            }
+            
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+        }
+        
+        /* Header scroll effect */
+        .header-container.scrolled {
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed Header Container -->
+    <div class="header-container" id="headerContainer">
+        <div class="header">
+            <h1>Zenith Private Secondary School</h1>
+            <div class="subtitle">Batch Student Upload System</div>
+        </div>
+        
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="/admin">Admin Panel</a>
+                <a href="/add_zenith_students">Single Add</a>
+                <a href="/batch_add_zenith_students" class="active">Batch Upload</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h2>📄 Batch Upload Students to Zenith Sheets</h2>
+        
+        <div class="info-box">
+            <h3>📋 Required Format</h3>
+            <p>• One student per line</p>
+            <p>• Format: <strong>StudentID,Full Name</strong></p>
+            <p>• Use comma (,) or tab to separate ID and Name</p>
+            <p>• All students will be added to the selected form's sheet</p>
+            <div class="example">
+                ZEN2024001,John Doe<br>
+                ZEN2024002,Jane Smith<br>
+                ZEN2024003,Michael Johnson<br>
+                ZEN2024004,Sarah Williams<br>
+                ZEN2024005,Robert Brown
+            </div>
+        </div>
+        
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {% if category == 'success' %}✅{% else %}❌{% endif %} {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="form_level">📚 Select Form for All Students:</label>
+                <select id="form_level" name="form_level" required>
+                    <option value="">-- Select Form Level --</option>
+                    <option value="form1" {% if selected_form == 'form1' %}selected{% endif %}>Form 1</option>
+                    <option value="form2" {% if selected_form == 'form2' %}selected{% endif %}>Form 2</option>
+                    <option value="form3" {% if selected_form == 'form3' %}selected{% endif %}>Form 3</option>
+                    <option value="form4" {% if selected_form == 'form4' %}selected{% endif %}>Form 4</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="student_data">📝 Paste Student Data:</label>
+                <textarea id="student_data" name="student_data" 
+                          placeholder="Paste student data here, one per line:
+ZEN2024001,John Doe
+ZEN2024002,Jane Smith
+ZEN2024003,Michael Johnson">{% if student_data %}{{ student_data }}{% endif %}</textarea>
+            </div>
+            
+            <button type="submit">
+                📤 Upload Students to Zenith Sheet
+            </button>
+        </form>
+        
+        {% if results %}
+        <div class="results-section">
+            <div class="results-header">
+                <h3>📊 Upload Results</h3>
+                {% set added_count = namespace(value=0) %}
+                {% set error_count = namespace(value=0) %}
+                {% for result in results %}
+                    {% if '✓' in result %}
+                        {% set added_count.value = added_count.value + 1 %}
+                    {% elif '✗' in result %}
+                        {% set error_count.value = error_count.value + 1 %}
+                    {% endif %}
+                {% endfor %}
+                <div class="stats">
+                    <span class="stat added">✅ Added: {{ added_count.value }}</span>
+                    <span class="stat errors">❌ Errors: {{ error_count.value }}</span>
+                </div>
+            </div>
+            
+            <div class="results-box">
+                {% for result in results %}
+                    <div class="result-line {% if '✓' in result %}success{% else %}error{% endif %}">
+                        {{ result }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/add_zenith_students" class="back-link">
+                ← Back to Single Student Add
+            </a>
+            <a href="/admin" style="margin-left: 20px;" class="back-link">
+                ← Back to Admin Panel
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 Zenith Private Secondary School - SmartScore Center. All rights reserved.
+    </div>
+
+    <script>
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const headerContainer = document.getElementById('headerContainer');
+            if (window.scrollY > 10) {
+                headerContainer.classList.add('scrolled');
+            } else {
+                headerContainer.classList.remove('scrolled');
+            }
+        });
+        
+        // Highlight current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-links a');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Auto-focus on textarea if it's empty
+            const textarea = document.getElementById('student_data');
+            if (textarea && !textarea.value.trim()) {
+                textarea.focus();
+            }
+        });
+    </script>
+</body>
+</html>

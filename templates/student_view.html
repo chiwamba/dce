@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Progress Report</title>
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #f1f1f1;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body takes the full height of the viewport */
+        }
+
+        /* Header Styling */
+        .header {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        /* Menu Styling */
+        .menu {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu a:hover {
+            color: #0056b3;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 600px;
+            width: 90%;
+            margin-top: 50px;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #007bff;
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            font-size: 1rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.2rem;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 15px 10px;
+            font-size: 0.9rem;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+
+        .footer a {
+            color: #6ab1d7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin-top: 30px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+            }
+
+            .form-control {
+                font-size: 0.9rem;
+            }
+
+            button {
+                font-size: 1rem;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Student Portal</div>
+    </header>
+
+    <!-- Menu -->
+    <nav class="menu">
+        <a href="https://www.smartscorecenter.com" target="_blank">Test Center</a>
+    </nav>
+
+    <!-- Container for Form -->
+    <div class="container">
+        <h1>My Progress Report</h1>
+      
+        <form method="POST">
+            <div class="form-group">
+                <label for="student_id">Enter your Student ID:</label>
+                <input type="text" id="student_id" name="student_id" class="form-control" required>
+            </div>
+            <button type="button" onclick="openReport()">View Progress Report</button>
+        </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; Student Portal | Powered by <a href="https://www.smartscorecenter.com">SmartScore Center</a>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function openReport() {
+            var studentId = document.getElementById("student_id").value;
+            if (studentId) {
+                // Open the report URL in a new tab or window
+                window.open('/view_report/' + studentId, '_blank');
+            } else {
+                alert("Please enter a valid student ID.");
+            }
+        }
+    </script>
+</body>
+
+</html>

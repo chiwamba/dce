@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open PDF</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            window.open("{{ pdf_url }}", "_blank");  // Open the PDF in a new window
+            window.location.href = "{{ url_for('some_redirect_route') }}";  // Optional: Redirect back to another page if needed
+        };
+    </script>
+</head>
+<body>
+    <p>If the PDF does not open automatically, <a href="{{ pdf_url }}" target="_blank">click here to view it.</a></p>
+</body>
+</html>
