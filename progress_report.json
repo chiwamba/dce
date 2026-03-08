@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "smartscore-center",
+  "private_key_id": "7d494560a66e5bc6a67dc03578a1c5922c1bc528",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCTqc6WkyN0Qbw4\nkHC1e00+4DISFz4f1Qo0fsTM6njfxgKtfaeWHjUg9lCZivmKH5cG/F5QauuJ286X\nxyLKBggcJUfp6K2ThYyinE0Wmm4ans5ZtK57QSH4PdKW6fzL6S5ksxQrqda6nFLM\nwXcfKB6IPmdM2vLHNhzVJIdlJYGz3kKEiZ94FeWXmBlM2a1sYaNJZwV0Sksz3Af6\n0B5akpq3p34ZpmaemhxP89LxBIFdFwaUlLgwTPOlODGkij4ITb5IGwdLtUw+3NlJ\nkCtSGUF8nAnKN8nVDRJKebO+blKHVu5qagKFs9dDRBALhne5kEOZPBR1gvO+OBcL\npTk4B5AZAgMBAAECggEAC7CKKmZsjJlgRqlnRXQE6fYtUJGmzotQJawRdVgXMz6F\nhhQn+QeG1NywWxoNkNnZBr8M0lichoswStiuEDMztNKzY449divA4JCiE6jXEDlu\nhDB8Yu/a5MA0KdP35MaexcRdfkARlS/8krllbkHVT5uCaar9mY1W8VKqe0nhqjT5\nM1NGvm8oUUKNhpTtuiZQ/HV9feUEiFYUxG+A0ZYEtzxrANf7FkS9VvJMPyvThBtk\nfpN4bUF8zG599rFsr/+VDAs//qjPwrdHI5sjdbU3vNl9b7JEoCL5TgerFZCFhv6A\nlyjlHtT6iJfD/7aSy7Dzkxg+XTRylMyz6/o6NDJruQKBgQDJ0RqhSXXXDXZ6qg+G\nY+pueTKUl644LBZz34ClmhztsXxR3dY3jmlfpXjM4eIrVje50b+kVB1Qd7nm3TJK\nqyTwDJ/bFGK3rp6V9cOGukLySgEkEiZ4tEesG174YOCgm4Z4Xv/l3yfAeLyth4du\nxmnXSNbQRWyeR6rG+LWebpn1/QKBgQC7Trm8afT2ujbdPMRUyWL6J85vS/Opb2lJ\nFGnqTV3m/ViZA5I2XsLk3PW/K86bq216E3PQZaCOap+N8ztDd8qVMZspW9JCagRT\nMEqlOcfQPBNvwVefg6AAAKhQ7/tlgz0LZ//OD4DUOUwm9aeGTQ6xQq3Pl73bGLhr\nYnpS3WXPTQKBgFGkVbGJljI5MATPZxhmsx+dx+h0s/XlX+/gKprTjYBanIBBzbcL\n1XTr68J2XphJeKGjSHOh03oJ9Rp/wSiTs42ojcKCrKzB50Wi9kY6c3qwlWWSMh4C\nUDw/llvEVRqjz/JB/CNx8xLZxPouKYuWmJqOzNfUPeyJ8XwsgMxm0cHBAoGAcy3Z\n8Q6G4CFqE2mGoUylXIaV3sKptwsXhyTSbI3erGglzxHvGxfyaKGnTEM37WnhDCxi\nD0gvDuRp8PQdAUPsgwnaC/i2trhSqIUNocSCJn6KxTHzG9foz5eX6Q1pXebx5s2w\n85l88wO43Ew7E87WthH2p6z7xnrRDNeluMcEEBECgYBgPVBBEdHbNN37YnfAebK6\nDJHEN6uyV1ChlCYZk1dDPOxW85Ms9AbBZHYAGsvu2M1iLhVjxghhl8XLmxHIzfil\n1c5FmOYfiUAJoz2uA+cNPZRPSs+l5LEtGReddlGkP8KXEBzQW+Od3WsEdZsEl75V\n6sbONRuCWWQ5ht3o5FVgYw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "smartscorecenter@smartscore-center.iam.gserviceaccount.com",
+  "client_id": "117784408435630455914",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/smartscorecenter%40smartscore-center.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
