@@ -41,7 +41,7 @@ SHEETS_CONFIG = {
 
 # Google Drive API credentials
 SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/spreadsheets']
-SERVICE_ACCOUNT_FILE = '/home/smarbpfr/sis.smartscorecenter.com/venv/progress_report.json'
+SERVICE_ACCOUNT_FILE = 'progress_report.json'
 
 credentials = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
@@ -961,3 +961,4 @@ def logout():
     
 if __name__ == '__main__':
     application.run(debug=True)
+
